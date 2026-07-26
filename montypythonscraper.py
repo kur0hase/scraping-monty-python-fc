@@ -35,12 +35,21 @@ while True:
 
     if user_input.casefold() not in valid_options:
         time.sleep(0.5)
-        user_choose = user_input
+        user_choose = user_input.casefold()
         print("\n[bright_cyan]I'm afraid that is not my question.[bright_cyan]\n")
     else:
         break
 
-    
+series = [1, 2, 3, 4]
+
+if user_choose == 'a':
+    pass
+elif user_choose == 'b':
+    pass
+elif user_choose == 'c':
+    pass
+elif user_choose == 'd':
+    pass
 
 # series = [1, 2, 3, 4]
 # sketches_1 = 95
