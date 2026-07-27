@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 from rich import print
+import random
 import requests
 import time
 
@@ -31,41 +32,44 @@ user_choose = ''
 
 while True:
     time.sleep(1)
-    user_input = input("What would you like to do? (Monty Python Flying Circus only. This isn't a vocational guidance counsellor.)\na. Random sketch    b. Random, but can I choose?    c. Let me choose    d. Broody herr!\n\n")
-
-    if user_input.casefold() not in valid_options:
+    print("[bright_cyan]\nWhat would you like to do? (Monty Python Flying Circus only. This isn't a vocational guidance counsellor.[bright_cyan])")
+    user_input = input("\na. Random sketch    b. Random, but can I choose?    c. Let me choose    d. Broody herr!\n\n")
+    user_choose = user_input.casefold()
+    if user_choose not in valid_options:
         time.sleep(0.5)
-        user_choose = user_input.casefold()
         print("\n[bright_cyan]I'm afraid that is not my question.[bright_cyan]\n")
-    else:
-        break
 
-series = [1, 2, 3, 4]
+    try:
+        if user_choose == 'a':
+            print('\n[bright_cyan]Generating random script...[bright_cyan]')
+            time.sleep(1)
 
-if user_choose == 'a':
-    pass
-elif user_choose == 'b':
-    pass
-elif user_choose == 'c':
-    pass
-elif user_choose == 'd':
-    pass
+            randomseries = random.randint(1, 4)
+            sketches = {
+                1 : 95,
+                2 : 120,
+                3 : 115,
+                4 : 50
+            }
+            maxrange = sketches[randomseries]
+            randomsketch = random.randint(1, maxrange)
 
-# series = [1, 2, 3, 4]
-# sketches_1 = 95
-# sketches_2 = 120
-# sketches_3 = 115
-# sketches_4 = 50
-# totalsketches = 380
+            randomised = f"http://montypython.50webs.com/scripts/Series_{randomseries}/{randomsketch}.htm"
+            link = requests.get(randomised, headers=headers)
+            bs = BeautifulSoup(link.content, 'html.parser')
 
-# link = requests.get("http://montypython.50webs.com/scripts/Series_2/70.htm", headers=headers)
-# print(link.status_code)
-# bs = BeautifulSoup(link.content, 'html.parser')
-# # print(bs.prettify())
-
-# content = bs.find('body')
-# if content:
-#     for para in content.find_all('p'):
-#         print(para.text.strip())
-# else:
-#     print('not found')
+            content = bs.find('body')
+            if content:
+                for para in content.find_all('p'):
+                    print("\n", para.text.strip())
+                print("[bright_cyan]source:[bright_cyan]", randomised)
+            else:
+                print('\nnot found.')
+        elif user_choose == 'b':
+            pass
+        elif user_choose == 'c':
+            pass
+        elif user_choose == 'd':
+            pass
+    except:
+        pass
