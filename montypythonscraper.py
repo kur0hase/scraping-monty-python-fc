@@ -37,20 +37,21 @@ while True:
     user_choose = user_input.casefold()
     if user_choose not in valid_options:
         time.sleep(0.5)
-        print("\n[bright_cyan]I'm afraid that is not my question.[bright_cyan]\n")
+        print("\n[dark_orange]I'm afraid that is not my question.[dark_orange]\n")
+
+    sketches = {
+        1 : 95,
+        2 : 120,
+        3 : 115,
+        4 : 50
+        }
 
     try:
         if user_choose == 'a':
-            print('\n[bright_cyan]Generating random script...[bright_cyan]')
-            time.sleep(1)
+            print('\n[bright_cyan]Generating random sketch...[bright_cyan]')
+            time.sleep(1.5)
 
             randomseries = random.randint(1, 4)
-            sketches = {
-                1 : 95,
-                2 : 120,
-                3 : 115,
-                4 : 50
-            }
             maxrange = sketches[randomseries]
             randomsketch = random.randint(1, maxrange)
 
@@ -59,14 +60,29 @@ while True:
             bs = BeautifulSoup(link.content, 'html.parser')
 
             content = bs.find('body')
-            if content:
+            for para in content.find_all('p'):
+                print("\n", para.text.strip())
+            print("[bright_cyan]source:[bright_cyan]", randomised)
+
+        elif user_choose == 'b':
+            time.sleep(0.5)
+            print("[bright_cyan]\nMonty Python's Flying Circus only aired for 4 season.\nWhich one do you prefer?[bright_cyan]")
+            user_pick = input("\nThis is your answer box: ")
+            if int(user_pick) in sketches:
+                print("[bright_cyan]\nPicking up funny sketch for you ...[bright_cyan]")
+                time.sleep(2)
+                maxrange = sketches[int(user_pick)]
+                random_sketch = random.randint(1, maxrange)
+                randomised = f"http://montypython.50webs.com/scripts/Series_{int(user_pick)}/{random_sketch}.htm"
+                link = requests.get(randomised, headers=headers)
+                bs = BeautifulSoup(link.content, 'html.parser')
+                content = bs.find('body')
                 for para in content.find_all('p'):
                     print("\n", para.text.strip())
                 print("[bright_cyan]source:[bright_cyan]", randomised)
             else:
-                print('\nnot found.')
-        elif user_choose == 'b':
-            pass
+                time.sleep(1)
+                print("\n[dark_orange]I'm afraid that series has never been aired.[dark_orange]")
         elif user_choose == 'c':
             pass
         elif user_choose == 'd':
