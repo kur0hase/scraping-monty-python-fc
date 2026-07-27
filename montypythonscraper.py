@@ -35,9 +35,6 @@ while True:
     print("[bright_cyan]\nWhat would you like to do? (Monty Python Flying Circus only. This isn't a vocational guidance counsellor.[bright_cyan])")
     user_input = input("\na. Random sketch    b. Random, but can I choose?    c. Let me choose    d. Broody herr!\n\n")
     user_choose = user_input.casefold()
-    if user_choose not in valid_options:
-        time.sleep(0.5)
-        print("\n[dark_orange]I'm afraid that is not my question.[dark_orange]\n")
 
     sketches = {
         1 : 95,
@@ -84,8 +81,77 @@ while True:
                 time.sleep(1)
                 print("\n[dark_orange]I'm afraid that series has never been aired.[dark_orange]")
         elif user_choose == 'c':
-            pass
+            time.sleep(1)
+            print("[bright_cyan]\nFour seasons aired, which one do you prefer?[bright_cyan]")
+            series = input("\nEnter your season of choice: ")
+            validseries = [1, 2, 3, 4]
+            userseries = int(series)
+            if userseries in validseries:
+                time.sleep(0.5)
+                print(f"[bright_cyan]\nSketches from season {userseries}:")
+                if userseries == 1:
+                    file = open("first_season.txt", "r")
+                    for line in enumerate(file, start=1):
+                        print("[dark_olive_green3]", line, "[dark_olive_green3]")
+                    usersketch = input("\nEnter the number: ")
+                    randomised = f"http://montypython.50webs.com/scripts/Series_{userseries}/{int(usersketch)}.htm"
+                    link = requests.get(randomised, headers=headers)
+                    bs = BeautifulSoup(link.content, 'html.parser')
+                    content = bs.find('body')
+                    for para in content.find_all('p'):
+                        print("\n", para.text.strip())
+                    print("[bright_cyan]source:[bright_cyan]", randomised)
+                elif userseries == 2:
+                    file = open("second_season.txt", "r")
+                    for line in enumerate(file, start=1):
+                        print("[dark_olive_green3]", line, "[dark_olive_green3]")
+                    usersketch = input("\nEnter the number: ")
+                    randomised = f"http://montypython.50webs.com/scripts/Series_{userseries}/{int(usersketch)}.htm"
+                    link = requests.get(randomised, headers=headers)
+                    bs = BeautifulSoup(link.content, 'html.parser')
+                    content = bs.find('body')
+                    for para in content.find_all('p'):
+                        print("\n", para.text.strip())
+                    print("[bright_cyan]source:[bright_cyan]", randomised)
+                elif userseries == 3:
+                    file = open("third_season.txt", "r")
+                    for line in enumerate(file, start=1):
+                        print("[dark_olive_green3]", line, "[dark_olive_green3]")
+                    usersketch = input("\nEnter the number: ")
+                    randomised = f"http://montypython.50webs.com/scripts/Series_{userseries}/{int(usersketch)}.htm"
+                    link = requests.get(randomised, headers=headers)
+                    bs = BeautifulSoup(link.content, 'html.parser')
+                    content = bs.find('body')
+                    for para in content.find_all('p'):
+                        print("\n", para.text.strip())
+                    print("[bright_cyan]source:[bright_cyan]", randomised)
+                elif userseries == 4:
+                    file = open("fourth_season.txt", "r")
+                    for line in enumerate(file, start=1):
+                        print("[dark_olive_green3]", line, "[dark_olive_green3]")
+                    usersketch = input("\nEnter the number: ")
+                    randomised = f"http://montypython.50webs.com/scripts/Series_{userseries}/{int(usersketch)}.htm"
+                    link = requests.get(randomised, headers=headers)
+                    bs = BeautifulSoup(link.content, 'html.parser')
+                    content = bs.find('body')
+                    for para in content.find_all('p'):
+                        print("\n", para.text.strip())
+                    print("[bright_cyan]source:[bright_cyan]", randomised)
         elif user_choose == 'd':
-            pass
-    except:
-        pass
+            time.sleep(1)
+            print("[bright_cyan]\nGood choice! And that is my favourite sketch!")
+            time.sleep(1)
+            print("\n[bright_cyan]Enjoy the bit![bright_cyan]")
+            time.sleep(1)
+            here = f"http://montypython.50webs.com/scripts/Series_3/21.htm"
+            link = requests.get(here, headers=headers)
+            bs = BeautifulSoup(link.content, 'html.parser')
+            content = bs.find('body')
+            for para in content.find_all('p'):
+                print("\n", para.text.strip())
+            print("[bright_cyan]source:[bright_cyan]", randomised)
+        else:
+            raise IndexError
+    except IndexError:
+        time.sleep(1)
+        print('\nNo question related to that answer.')
