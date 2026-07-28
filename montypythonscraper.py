@@ -1,11 +1,14 @@
 from bs4 import BeautifulSoup
 from rich import print
+from fake_useragent import UserAgent
 import random
 import requests
 import time
 
+ua = UserAgent()
+
 headers = {
-    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:153.0) Gecko/20100101 Firefox/153.0",
+    "User-Agent": ua.random,
     "Accept": "text/css,*/*;q=0.1",
     "Accept-Language": "en-US,en;q=0.9",
     "Accept-Encoding": "gzip, deflate",
